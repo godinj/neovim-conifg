@@ -15,6 +15,11 @@ vim.opt.rtp:prepend(lazypath)
 -- This has to be set before initializing lazy
 vim.g.mapleader = " "
 
+vim.o.mouse = 'a'
+vim.o.showmode = false
+
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
 -- Initialize lazy with dynamic loading of anything in the plugins directory
 require("lazy").setup("plugins", {
    change_detection = {
