@@ -19,6 +19,17 @@ else
   system_os = "linux"
 end
 
+local ws_folders_jdtls = {}
+if root_dir then
+ local file = io.open(root_dir .. "/.bemol/ws_root_folders")
+ if file then
+  for line in file:lines() do
+   table.insert(ws_folders_jdtls, "file://" .. line)
+  end
+  file:close()
+ end
+end
+
 -- Needed for debugging
 local bundles = {
   vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
@@ -51,6 +62,10 @@ local config = {
     home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. system_os,
     "-data",
     workspace_dir,
+
+    "jdtls", -- need to be on your PATH
+    -- "--jvm-arg=-javaagent:" .. home .. "/Developer/lombok.jar", -- need for lombok magic
+    -- "-data",
   },
 
   -- This is the default if not provided, you can remove it. Or adjust as needed.
@@ -154,11 +169,27 @@ local config = {
     -- References the bundles defined above to support Debugging and Unit Testing
     bundles = bundles,
     extendedClientCapabilities = jdtls.extendedClientCapabilities,
+    workspaceFolders = ws_folders_jdtls,
   },
 }
 
 -- Needed for debugging
 config["on_attach"] = function(client, bufnr)
+  local bemol_dir = vim.fs.find({ '.bemol' }, { upward = true, type = 'directory'})[1]
+  local ws_folders_lsp = {}
+  if bemol_dir then
+    local file = io.open(bemol_dir .. '/ws_root_folders', 'r')
+    if file then
+      for line in file:lines() do
+        table.insert(ws_folders_lsp, line)
+      end
+      file:close()
+    end
+  end
+  for _, line in ipairs(ws_folders_lsp) do
+    vim.lsp.buf.add_workspace_folder(line)
+  end
+
   jdtls.setup_dap({ hotcodereplace = "auto" })
   require("jdtls.dap").setup_dap_main_class_configs()
 end

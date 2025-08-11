@@ -49,7 +49,7 @@ keymap.set("n", "<leader>er", ":NvimTreeFocus<CR>") -- toggle focus to file expl
 keymap.set("n", "<leader>ef", ":NvimTreeFindFile<CR>") -- find file in file explorer
 
 -- Telescope
-keymap.set('n', '<leader>ff', function() require('telescope.builtin').find_files({ hidden = true }) end) -- fuzzy find files in project
+keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {}) -- fuzzy find files in project
 keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {}) -- grep file contents in project
 keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, {}) -- fuzzy find open buffers
 keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {}) -- fuzzy find help tags
@@ -79,12 +79,6 @@ keymap.set("n", "<leader>h6", function() require("harpoon.ui").nav_file(6) end)
 keymap.set("n", "<leader>h7", function() require("harpoon.ui").nav_file(7) end)
 keymap.set("n", "<leader>h8", function() require("harpoon.ui").nav_file(8) end)
 keymap.set("n", "<leader>h9", function() require("harpoon.ui").nav_file(9) end)
-
-keymap.set("n", "<C-e>", require("harpoon.ui").toggle_quick_menu)
-keymap.set("n", "<C-y>", function() require("harpoon.ui").nav_file(1) end)
-keymap.set("n", "<C-t>", function() require("harpoon.ui").nav_file(2) end)
-keymap.set("n", "<C-n>", function() require("harpoon.ui").nav_file(3) end)
-keymap.set("n", "<C-b>", function() require("harpoon.ui").nav_file(4) end)
 
 -- Vim REST Console
 keymap.set("n", "<leader>xr", ":call VrcQuery()<CR>") -- Run REST query
@@ -132,7 +126,6 @@ keymap.set("n", '<leader>tm', function()
   end
 end)
 
-
 -- Debugging
 keymap.set("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
 keymap.set("n", "<leader>bc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
@@ -144,7 +137,7 @@ keymap.set("n", "<leader>dj", "<cmd>lua require'dap'.step_over()<cr>")
 keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.step_into()<cr>")
 keymap.set("n", "<leader>do", "<cmd>lua require'dap'.step_out()<cr>")
 keymap.set("n", '<leader>dd', function() require('dap').disconnect(); require('dapui').close(); end)
-keymap.set("n", '<leadeh>dt', function() require('dap').terminate(); require('dapui').close(); end)
+keymap.set("n", '<leader>dt', function() require('dap').terminate(); require('dapui').close(); end)
 keymap.set("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
 keymap.set("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
 keymap.set("n", '<leader>di', function() require "dap.ui.widgets".hover() end)
@@ -153,35 +146,3 @@ keymap.set("n", '<leader>df', '<cmd>Telescope dap frames<cr>')
 keymap.set("n", '<leader>dh', '<cmd>Telescope dap commands<cr>')
 keymap.set("n", '<leader>de', function() require('telescope.builtin').diagnostics({default_text=":E:"}) end)
 
-keymap.set('n', 'zy', '"*y')
-keymap.set('n', 'zu', '"*p')
-keymap.set('n', 'zU', '"*P')
-keymap.set('n', 'zv', 'vi"')
-keymap.set('n', 'zb', 'va"')
-keymap.set('n', 'zc', 'viw')
-keymap.set('n', 'zC', 'viW')
-keymap.set('n', 'zj', '0v')
-keymap.set('n', 'zk', '0v$h')
-keymap.set('n', 'zl', '$h')
-keymap.set('n', 'za', "c''<ESC>P")
-keymap.set('n', 'zs', 'c""<ESC>P')
-keymap.set('n', 'zd', 'c()<ESC>P')
-keymap.set('n', 'zf', 'c{}<ESC>P')
-keymap.set('n', 'zg', 'c<><ESC>P')
-keymap.set('n', 'zi', 'i <ESC>')
-keymap.set('n', 'za', 'a <ESC>')
-keymap.set('n', 'zo', 'o<ESC>')
-keymap.set('n', 'zO', 'O<ESC>')
-keymap.set('n', '<C-[>', '{')
-keymap.set('n', '<C-]>', '}')
-
-keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-keymap.set('n', '<leader>zs', vim.cmd.Git)
-
-keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-keymap.set("n", "J", "mzJ`z")
-keymap.set("n", "<C-d>", "<C-d>zz")
-keymap.set("n", "<C-u>", "<C-u>zz")
-keymap.set("n", "n", "nzzzv")
-keymap.set("n", "N", "Nzzzv")
