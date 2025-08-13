@@ -17,7 +17,7 @@ keymap.set("n", "<leader>sx", ":close<CR>") -- close split window
 keymap.set("n", "<leader>sj", "<C-w>-") -- make split window height shorter
 keymap.set("n", "<leader>sk", "<C-w>+") -- make split windows height taller
 keymap.set("n", "<leader>sl", "<C-w>>5") -- make split windows width bigger 
-keymap.set("n", "<leader>sh", "<C-w><5") -- make split windows width smaller
+-- keymap.set("n", "<leader>sh", "<C-w><5") -- make split windows width smaller
 
 -- Tab management
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- open a new tab

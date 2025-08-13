@@ -1,5 +1,4 @@
 local opt = vim.opt
-
 -- Session Management
 opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
