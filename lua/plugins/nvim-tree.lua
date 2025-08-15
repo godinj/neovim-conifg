@@ -10,9 +10,12 @@ return {
     actions = {
       open_file = {
         window_picker = {
-          enable = false
+          enable = true
         },
       }
+    },
+    update_focused_file = {
+      enable = true
     },
   },
   config = function (_, opts)
